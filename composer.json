@@ -1,0 +1,13 @@
+{
+    "name": "enko/check-rrsig",
+    "license": "wodka-ware",
+    "type": "project",
+    "require": {
+        "php": "~5.6",
+        "monolog/monolog": "~1.16",
+        "bramus/monolog-colored-line-formatter": "~2.0",
+        "ulrichsg/getopt-php": "~2.3",
+        "respect/validation": "dev-master",
+        "pear/net_dns2": "~1.4"
+    }
+}
