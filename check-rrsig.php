@@ -77,11 +77,15 @@ try {
         $r = new Net_DNS2_Resolver(['nameservers' => $resolvers,'dnssec' => true]);
         $log->addInfo('Fetching RRSIG from original server to bypass cache.',["resolvers" => $resolvers]);
         $expire_date = getValueFromQuery($r,$host,'RRSIG','sigexp',false);
-        $now = new \DateTime();
-        $expire_date = \DateTime::createFromFormat("YmdHis",$expire_date);
-        $log->addInfo("Calculate the datediff",['expire_date' => $expire_date->format('c')]);
-        $diff = intval($now->diff($expire_date)->format('%R%a'));
-        echo $diff . "\n";
+        if (count($expire_date) > 0) {
+            $now = new \DateTime();
+            $expire_date = \DateTime::createFromFormat("YmdHis",$expire_date);
+            $log->addInfo("Calculate the datediff",['expire_date' => $expire_date->format('c')]);
+            $diff = intval($now->diff($expire_date)->format('%R%a'));
+            echo $diff . "\n";
+        } else {
+            echo "-1\n";
+        }
     } catch(Net_DNS2_Exception $e) {
         $log->addError('Query Failed',['exception' => $e->getMessage()]);
     }
