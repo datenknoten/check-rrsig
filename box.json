@@ -1,0 +1,15 @@
+{
+    "files": ["check-rrsig.php","functions.php"],
+    "main": "check-rrsig.php",
+    "output": "build/check-rrsig.phar",
+    "chmod": "0755",
+    "compression": "BZ2",
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        }
+    ],    
+    "stub": true
+}
