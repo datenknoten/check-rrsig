@@ -22,11 +22,6 @@ Options:
   -h, --help              Print this help.
 ```
 
-* `--resolver <arg>`: Use a custom resolver and not the one from
-  /etc/resolv.conf
-* `--debug`: Print debuging messages to tackle your problems.
-* `--help`: Print this help.  
-
 ## Install
 
 You can get the latest build of check-rrsig from my build server:
