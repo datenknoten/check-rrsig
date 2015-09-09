@@ -34,6 +34,7 @@ try {
 
     if ($getopt['help']) {
         printf($getopt->getHelpText());
+        exit(0);
     }
 
     // create a log channel
@@ -48,7 +49,6 @@ try {
     $host = $getopt->getOperands();
 
     // validating the host
-
     if ((count($host) > 1) || (count($host) == 0)) {
         printf($getopt->getHelpText());
         exit(1);
@@ -57,7 +57,7 @@ try {
     $log->addInfo("Validating host",['host' => $host]);
     if (!(v::domain()->validate($host))) {
         $log->addError('Not a valid domain');
-        exit(1);
+        exit(2);
     }
 
     $log->addInfo('Checking host',["host" => $host]);
@@ -89,7 +89,8 @@ try {
             $diff = intval($now->diff($expire_date)->format('%R%a'));
             echo $diff . "\n";
         } else {
-            echo "-1\n";
+            $log->addWarning("No RRSIG records found. Domain is propably not signed via DNSSEC.");
+            exit(3);
         }
     } catch(Net_DNS2_Exception $e) {
         $log->addError('Query Failed',['exception' => $e->getMessage()]);
