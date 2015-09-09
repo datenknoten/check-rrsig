@@ -19,10 +19,15 @@ use Ulrichsg\Getopt\Option;
 use Respect\Validation\Validator as v;
 
 $getopt = new Getopt([
-    new Option('r','resolver',Getopt::REQUIRED_ARGUMENT),
-    new Option('d','debug',Getopt::NO_ARGUMENT),
-    new Option('h','help',Getopt::NO_ARGUMENT),
+    (new Option('r','resolver',Getopt::REQUIRED_ARGUMENT))
+      ->setDescription('Use a custom resolver and not the one from /etc/resolv.conf.'),
+    (new Option('d','debug',Getopt::NO_ARGUMENT))
+      ->setDescription('Print debuging messages to tackle your problems.'),
+    (new Option('h','help',Getopt::NO_ARGUMENT))
+      ->setDescription('Print this help.'),
 ]);
+
+$getopt->setBanner("Usage: %s [options] <hostname>\n");
 
 try {
     $getopt->parse();
@@ -45,7 +50,7 @@ try {
     // validating the host
 
     if ((count($host) > 1) || (count($host) == 0)) {
-        $log->addError("Please specify only one host to check.\n");       
+        printf($getopt->getHelpText());
         exit(1);
     }
     $host = trim($host[0]);
